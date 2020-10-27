@@ -16,7 +16,7 @@ module.exports = gql`
     username: String!
     createdAt: String!
   }
-  type RegisterInput {
+  input RegisterInput {
     username: String!
     password: String!
     confirmPassword: String!
