@@ -8,6 +8,8 @@ const { MONGODB } = require('./config');
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  // so we can access the request body in the context, so we can do stuff like checking for authentication in protected routes
+  context: ({ req }) => ({ req }),
 });
 
 mongoose
