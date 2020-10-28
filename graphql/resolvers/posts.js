@@ -29,6 +29,10 @@ module.exports = {
     async createPost(_, { body }, context) {
       const user = checkAuth(context);
 
+      if (body.trim() === '') {
+        throw new Error('Post body must not be empty');
+      }
+
       // at this point, a user definitely exists and is authorized (otherwise error would be thrown in checkAuth)
       const newPost = new Post({
         body,
