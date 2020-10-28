@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { ApolloServer, PubSub } = require('apollo-server');
 const mongoose = require('mongoose');
 
