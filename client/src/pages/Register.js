@@ -1,10 +1,13 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 
-function Register() {
+function Register(props) {
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     username: '',
     email: '',
@@ -12,17 +15,22 @@ function Register() {
     confirmPassword: '',
   });
 
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
-      // eslint-disable-next-line no-console
-      console.log({ result });
+    // success
+    update(_, result) {
+      console.log(result);
+      props.history.push('/');
+    },
+    // failure
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: values,
   });
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +47,7 @@ function Register() {
           placeholder="Username..."
           name="username"
           value={values.username}
+          error={!!errors.username}
           onChange={onChange}
         />
         <Form.Input
@@ -47,6 +56,7 @@ function Register() {
           placeholder="Email..."
           name="email"
           value={values.email}
+          error={!!errors.email}
           onChange={onChange}
         />
         <Form.Input
@@ -55,6 +65,7 @@ function Register() {
           placeholder="Password..."
           name="password"
           value={values.password}
+          error={!!errors.password}
           onChange={onChange}
         />
         <Form.Input
@@ -63,12 +74,22 @@ function Register() {
           placeholder="Confirm Password..."
           name="confirmPassword"
           value={values.confirmPassword}
+          error={!!errors.confirmPassword}
           onChange={onChange}
         />
         <Button type="submit" primary>
           Register
         </Button>
       </Form>
+      {Object.keys(errors).length > 0 && (
+        <div className="ui error message">
+          <ul className="list">
+            {Object.values(errors).map((value) => (
+              <li key={value}>{value}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
