@@ -1,15 +1,17 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from '../context/auth';
+
 // eslint-disable-next-line react/prop-types
 function PostCard({ post: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
+  const { user } = useContext(AuthContext);
+
   function likePost() {
-    console.log('like post');
-  }
-  function commentOnPost() {
     console.log('like post');
   }
 
@@ -32,7 +34,7 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
             {likeCount}
           </Label>
         </Button>
-        <Button as="div" labelPosition="right" onClick={commentOnPost}>
+        <Button as="div" labelPosition="right" as={Link} to={`/posts/${id}`}>
           <Button color="blue" basic>
             <Icon name="comments" />
           </Button>
@@ -40,6 +42,11 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
             {commentCount}
           </Label>
         </Button>
+        {user && user.username === username && (
+          <Button as="div" color="red" floated="right" onClick={() => console.log('delete post')}>
+            <Icon name="trash" style={{ margin: 0 }} />
+          </Button>
+        )}
       </Card.Content>
     </Card>
   );
