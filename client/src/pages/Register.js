@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 
+import { useForm } from '../util/hooks';
+
 function Register(props) {
   const [errors, setErrors] = useState({});
-  const [values, setValues] = useState({
+
+  const { onChange, onSubmit, values } = useForm(registerUser, {
     username: '',
     email: '',
     password: '',
@@ -18,7 +20,6 @@ function Register(props) {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     // success
     update(_, result) {
-      console.log(result);
       props.history.push('/');
     },
     // failure
@@ -28,14 +29,9 @@ function Register(props) {
     variables: values,
   });
 
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
+  function registerUser() {
     addUser();
-  };
+  }
 
   return (
     <div className="form-container">
