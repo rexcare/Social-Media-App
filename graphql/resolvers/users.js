@@ -42,7 +42,7 @@ module.exports = {
       // wrong password
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
-        errors.general = 'User not found';
+        errors.general = 'Wrong credentials';
         throw new UserInputError('Wrong credentials', { errors });
       }
 
@@ -55,17 +55,9 @@ module.exports = {
         token,
       };
     },
-    async register(
-      _,
-      { registerInput: { username, email, password, confirmPassword } }
-    ) {
+    async register(_, { registerInput: { username, email, password, confirmPassword } }) {
       // Validate user data
-      const { errors, valid } = validateRegisterInput(
-        username,
-        email,
-        password,
-        confirmPassword
-      );
+      const { errors, valid } = validateRegisterInput(username, email, password, confirmPassword);
 
       if (!valid) {
         throw new UserInputError('Errors', { errors });
