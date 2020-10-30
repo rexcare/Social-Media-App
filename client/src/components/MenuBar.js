@@ -22,7 +22,7 @@ function MenuBar() {
     </Menu>
   ) : (
     <Menu pointing secondary size="massive" color="teal">
-      <Menu.Item name="home" active={activeItem === 'home'} onClick={handleItemClick} />
+      <Menu.Item name="home" active={activeItem === 'home'} onClick={handleItemClick} as={Link} to="/" />
       <Menu.Menu position="right">
         <Menu.Item name="login" active={activeItem === 'login'} onClick={handleItemClick} as={Link} to="/login" />
         <Menu.Item
