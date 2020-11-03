@@ -11,6 +11,7 @@
 }
 
 .ui.teal.button:focus,
-.ui.teal.buttons .button:focus {
+.ui.teal.buttons .button:focus,
+.ui.teal.button:hover {
   background-color: #00b5ad;
 }
