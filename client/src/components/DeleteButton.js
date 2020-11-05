@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { Button, Confirm, Icon } from 'semantic-ui-react';
+import Tooltip from '../util/Tooltip';
 
 import { FETCH_POSTS_QUERY } from '../util/graphql';
 
@@ -40,9 +41,11 @@ function DeleteButton({ postId, commentId, callback }) {
   });
   return (
     <>
-      <Button as="div" color="red" floated="right" onClick={() => setConfirmOpen(true)}>
-        <Icon name="trash" style={{ margin: 0 }} />
-      </Button>
+      <Tooltip content={commentId ? 'Delete this comment' : 'Delete this post'}>
+        <Button as="div" color="red" floated="right" onClick={() => setConfirmOpen(true)}>
+          <Icon name="trash" style={{ margin: 0 }} />
+        </Button>
+      </Tooltip>
       <Confirm open={confirmOpen} onCancel={() => setConfirmOpen(false)} onConfirm={deletePostOrComment} />
     </>
   );

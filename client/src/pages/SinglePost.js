@@ -9,6 +9,7 @@ import moment from 'moment';
 import { AuthContext } from '../context/auth';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
+import Tooltip from '../util/Tooltip';
 
 function SinglePost(props) {
   const { postId } = props.match.params;
@@ -61,14 +62,16 @@ function SinglePost(props) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button as="div" labelPosition="right" onClick={() => console.log('Comment on post')}>
-                  <Button basic color="blue">
-                    <Icon name="comments" />
+                <Tooltip content="Comment on this post">
+                  <Button as="div" labelPosition="right" onClick={() => commentInputRef.current.focus()}>
+                    <Button basic color="blue">
+                      <Icon name="comments" />
+                    </Button>
+                    <Label basic color="blue" pointing="left">
+                      {commentCount}
+                    </Label>
                   </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                </Tooltip>
                 {user && user.username === username && <DeleteButton postId={id} callback={deletePostCallback} />}
               </Card.Content>
             </Card>

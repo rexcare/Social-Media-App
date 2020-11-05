@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import { Button, Icon, Label } from 'semantic-ui-react';
+import Tooltip from '../util/Tooltip';
 
 // eslint-disable-next-line react/prop-types
 function LikeButton({ user, post: { id, likeCount, likes } }) {
@@ -40,7 +41,7 @@ function LikeButton({ user, post: { id, likeCount, likes } }) {
   );
   return (
     <Button as="div" labelPosition="right" onClick={likePost}>
-      {likeButton}
+      <Tooltip content={liked ? 'Unlike' : 'Like'}>{likeButton}</Tooltip>
       <Label basic color="teal" pointing="left">
         {likeCount}
       </Label>
