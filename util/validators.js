@@ -1,9 +1,4 @@
-module.exports.validateRegisterInput = (
-  username,
-  email,
-  password,
-  confirmPassword
-) => {
+module.exports.validateRegisterInput = (username, email, password, confirmPassword) => {
   const errors = {};
   if (username.trim() === '') {
     errors.username = 'Hmmm... you forgot a username.';
@@ -17,11 +12,9 @@ module.exports.validateRegisterInput = (
     }
   }
   if (password === '') {
-    errors.password =
-      'Empty passwords are too easy to hack. Pick something with at least 1 character.';
+    errors.password = 'Empty passwords are too easy to hack. Pick something with at least 1 character.';
   } else if (password !== confirmPassword) {
-    errors.confirmPassword =
-      'Dang... there was a typo in your confirm password field. Try again.';
+    errors.confirmPassword = 'Dang... there was a typo in your confirm password field. Try again.';
   }
 
   return {

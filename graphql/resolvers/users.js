@@ -2,12 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { UserInputError } = require('apollo-server');
 
-const {
-  validateRegisterInput,
-  validateLoginInput,
-} = require('../../util/validators');
+const { validateRegisterInput, validateLoginInput } = require('../../util/validators');
 const { SECRET_KEY } = require('../../config');
-const User = require('../../models/user');
+const User = require('../../models/User');
 
 function generateToken(user) {
   return jwt.sign(
@@ -74,6 +71,7 @@ module.exports = {
       }
 
       // Hash the password
+      // eslint-disable-next-line no-param-reassign
       password = await bcrypt.hash(password, 12);
 
       // create the new user with the model and passed in data
