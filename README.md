@@ -32,8 +32,3 @@ https://merngapp.netlify.app/
 * Single Page App (React)
 * Production app deployed on Heroku/Netlify
 
-## Credits
-
-Huge thanks to [@hidjou](https://github.com/hidjou) for creating such a thorough, practical, informative, and educational YouTube series (not to mention it's totally free!)
-
-Check it out on his [YouTube channel](https://youtu.be/n1mdAPFq2Os).
